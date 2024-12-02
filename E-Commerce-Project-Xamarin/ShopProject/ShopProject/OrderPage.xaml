@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShopProject.ViewModel"
+             x:Class="ShopProject.OrderPage">
+
+    <ContentPage.BindingContext>
+        <vm:OrderViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20">
+        <Label Text="My Orders" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <CollectionView ItemsSource="{Binding Orders}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" BackgroundColor="White" Margin="0,5">
+                        <Label Text="{Binding CommandeId}" FontSize="16" FontAttributes="Bold"/>
+                        <Label Text="{Binding DateCommande, StringFormat='Date: {0:MM/dd/yyyy}'}" FontSize="14"/>
+                        <Label Text="{Binding Statue}" FontSize="14"/>
+                        <Label Text="{Binding TypePayment}" FontSize="14"/>
+                        <Label Text="{Binding Adresse}" FontSize="14"/>
+                        <Label Text="{Binding Prix, StringFormat='Price: ${0}'}" FontSize="14"/>
+                        <Label Text="{Binding Quantite, StringFormat='Quantity: {0}'}" FontSize="14"/>
+                        <Label Text="{Binding Product.Name}" FontSize="14"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Continue Shopping" Command="{Binding ContinueShoppingCommand}" HorizontalOptions="Center"/>
+    </StackLayout>
+</ContentPage>

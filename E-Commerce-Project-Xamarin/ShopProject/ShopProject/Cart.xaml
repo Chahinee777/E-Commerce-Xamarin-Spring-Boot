@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShopProject.ViewModel"
+             x:Class="ShopProject.CartPage"
+             BackgroundColor="#F5F6F6"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:CartViewModel x:Name="vm" />
+    </ContentPage.BindingContext>
+    <Grid Padding="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Text="Your Cart" TextColor="#2D2942" FontSize="25" FontAttributes="Bold" 
+               VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="0"/>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding CartItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" BackgroundColor="White" Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding Name}" TextColor="#2D2942" FontSize="16" Grid.Column="0"/>
+                        <StackLayout Orientation="Horizontal" Grid.Column="1" HorizontalOptions="Center">
+                            <ImageButton Source="minus.png" WidthRequest="32" HeightRequest="32" Command="{Binding BindingContext.DecreaseQuantityCommand, Source={x:Reference vm}}" CommandParameter="{Binding .}" BackgroundColor="Red"/>
+                            <Label Text="{Binding Quantity}" TextColor="#2D2942" FontSize="16" VerticalOptions="Center"/>
+                            <ImageButton Source="plus.png" WidthRequest="32" HeightRequest="32" Command="{Binding BindingContext.IncreaseQuantityCommand, Source={x:Reference vm}}" CommandParameter="{Binding .}" BackgroundColor="Green"/>
+                        </StackLayout>
+                        <Label Text="{Binding TotalPrice, StringFormat='${0}'}" TextColor="#2D2942" FontSize="14" Grid.Column="2"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <StackLayout Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+            <Button Text="Empty Cart" BackgroundColor="#F83A26" TextColor="White" FontSize="14" WidthRequest="150" HeightRequest="46" Command="{Binding EmptyCartCommand}"/>
+            <Button Text="Checkout" BackgroundColor="#F83A26" TextColor="White" FontSize="14" WidthRequest="150" HeightRequest="46" Command="{Binding CheckoutCommand}"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
